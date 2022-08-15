@@ -1,10 +1,15 @@
 import { Link, useNavigate } from "react-router-dom";
+import { useContext } from "react";
 
-import { Menubar } from "primereact/menubar";
+import { Badge } from "primereact/badge";
 import { Button } from "primereact/button";
+import { Menubar } from "primereact/menubar";
+
+import { CartContext } from "../../context/Cart-Context";
 
 const Header = () => {
   const navigate = useNavigate();
+  const { totalUnidades } = useContext(CartContext);
 
   const items = [
     {
@@ -62,6 +67,7 @@ const Header = () => {
             icon="pi pi-shopping-cart"
             className="p-button-rounded p-button-outlined"
           />
+          <Badge value={totalUnidades === 0 ? null : totalUnidades}  severity="danger"></Badge>
         </Link>
       }
     />

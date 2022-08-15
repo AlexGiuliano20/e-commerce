@@ -10,22 +10,14 @@ const CardContainer = () => {
   const { categoryId } = useParams();
 
   useEffect(() => {
+    const apiUrl = "https://fake-products-eric.herokuapp.com/api/products";
+    const peticion = categoryId ? `${apiUrl}/category/${categoryId}` : apiUrl;
     setLoading(true);
-    categoryId
-      ? fetch(
-          `https://fake-products-eric.herokuapp.com/api/products/category/${categoryId}`
-        )
-          .then((res) => res.json())
-          .then((res) => {
-            setItems(res);
-            setLoading(false);
-          })
-      : fetch("https://fake-products-eric.herokuapp.com/api/products")
-          .then((res) => res.json())
-          .then((res) => {
-            setItems(res);
-            setLoading(false);
-          });
+    fetch(peticion)
+      .then((res) => res.json())
+      .then((res) => setItems(res))
+      .catch((err) => console.log(err));
+    setLoading(false);
   }, [categoryId]);
 
   return (
